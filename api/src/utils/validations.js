@@ -20,8 +20,28 @@ const validateNumberGT0 = (limit) => {
     return null;
 };
 
+const validateUserEmail = (email) => {
+    if (!email) return 'El email no puede quedar vacío';
+
+    return null;
+};
+
+const validateUserPassword = (password) => {
+    if (!password) return 'El password no puede quedar vacío';
+    return null;
+};
+
+const validateUserName = (name) => {
+    if (!name) return 'El nombre no puede quedar vacío';
+
+    return null;
+};
+
 module.exports = {
     validateOrderByProducts,
     validateOrderDirProducts,
     validateNumberGT0,
+    validateUserEmail,
+    validateUserPassword,
+    validateUserName,
 };
