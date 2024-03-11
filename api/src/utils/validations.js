@@ -23,11 +23,16 @@ const validateNumberGT0 = (limit) => {
 const validateUserEmail = (email) => {
     if (!email) return 'El email no puede quedar vacío';
 
+    const regexEmail = /^\w+([\3.-]?\w+)*@\w+([\.-]?\w+)*(\.\w+)+$/;
+
+    if (!regexEmail.test(email)) return 'Email inválido.';
+
     return null;
 };
 
 const validateUserPassword = (password) => {
     if (!password) return 'El password no puede quedar vacío';
+
     return null;
 };
 

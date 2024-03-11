@@ -14,9 +14,9 @@ module.exports = async (req, res) => {
 
     if (nameError || emailError || passwordError) {
         const errors = {};
-        errors.name = nameError;
-        errors.email = emailError;
-        errors.password = passwordError;
+        if (nameError) errors.name = nameError;
+        if (emailError) errors.email = emailError;
+        if (passwordError) errors.password = passwordError;
 
         return res.status(400).json({ errors });
     }
