@@ -13,6 +13,8 @@ import App from './App'
 import Home from './views/Home'
 import Register from './views/auth/Register.jsx'
 import Login from './views/auth/Login.jsx'
+import Products from './views/Products.jsx'
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <Home />,
+            },
+            {
+                path: 'products',
+                element: <Products />
             },
             {
                 path: 'auth/register',
