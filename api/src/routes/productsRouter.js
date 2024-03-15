@@ -4,6 +4,6 @@ const auth = require('../middlewares/auth');
 
 const productsRouter = Router();
 
-productsRouter.get('/', auth, getAllHandler);
+productsRouter.get('/', getAllHandler);
 
 module.exports = productsRouter;
