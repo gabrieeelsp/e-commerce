@@ -2,12 +2,15 @@ import { Outlet } from "react-router-dom"
 import { useDispatch } from 'react-redux'
 
 import { me } from './features/auth/authSlice'
+import { getAll } from "./features/rubros/rubrosSlice"
 
 import HeaderComponent from './components/layout/HeaderComponent'
 
 
 function App() {
     const dispatch = useDispatch();
+
+    dispatch(getAll());
 
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) dispatch(me())

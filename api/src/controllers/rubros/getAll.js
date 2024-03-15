@@ -40,6 +40,7 @@ const getPrevPage = (page) => {
 
 module.exports = async (options, limit, page = 1) => {
     const { count, rows } = await Rubro.findAndCountAll({
+        include: ['subrubros'],
         where: getFilterList(options),
         order: getOrderList(options),
         offset: getOffset(limit, page),

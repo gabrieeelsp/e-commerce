@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const getAll = createAsyncThunk('products/getall', async ({limit, current_page}, { rejectWithValue }) => {
+export const getAll = createAsyncThunk('products/getall', async ({limit, current_page, rubroId, subrubroId}, { rejectWithValue }) => {
     try {
         const response = await axios.get('products', {
             params: {
                 limit,
                 page: current_page,
+                rubroid: rubroId,
+                subrubroid: subrubroId,
             }
         });
         return response.data;
@@ -34,8 +36,8 @@ const initialState = {
     },
 
     filters: {
-        rubro: null,
-        subrubro: null,
+        rubroId: null,
+        subrubroId: null,
         name: '',
     }
 }
@@ -44,7 +46,14 @@ export const productsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
-
+        rubroIdChanged: (state, action) => {
+            state.filters.rubroId = action.payload;
+            state.filters.subrubroId = null;
+        },
+        subrubroChanged: (state, action) => {
+            state.filters.rubroId = action.payload.rubroId
+            state.filters.subrubroId = action.payload.subrubroId
+        }
     },
     extraReducers (builder) {
         builder
@@ -66,6 +75,6 @@ export const productsSlice = createSlice({
     }
 })
 
-export const {} = productsSlice.actions;
+export const { rubroIdChanged, subrubroChanged } = productsSlice.actions;
 
 export default productsSlice.reducer;
