@@ -12,6 +12,12 @@ const validateOrderDirProducts = (orderDir) => {
     return null;
 };
 
+const validateIsNumber = (n) => {
+    if (isNaN(n)) return 'No es un número';
+
+    return null;
+};
+
 const validateNumberGT0 = (limit) => {
     // eslint-disable-next-line no-restricted-globals
     if (isNaN(limit)) return 'Debe ingresar un número.';
@@ -49,4 +55,5 @@ module.exports = {
     validateUserEmail,
     validateUserPassword,
     validateUserName,
+    validateIsNumber,
 };

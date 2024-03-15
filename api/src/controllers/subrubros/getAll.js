@@ -46,6 +46,7 @@ module.exports = async (options, limit, page = 1) => {
         offset: getOffset(limit, page),
         limit,
     });
+    console.log(count);
 
     return {
         data: rows,

@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-const { Product } = require('../../db');
+const { Product, Subrubro, Rubro } = require('../../db');
 
 const getFilterList = (options) => {
     const filterList = {};
@@ -12,8 +12,23 @@ const getFilterList = (options) => {
         );
     }
 
+    if (options.subrubroId) {
+        filterList.subrubroId = options.subrubroId;
+    }
+
     return filterList;
 };
+
+const getFilterRubroList = (options) => {
+    const filterList = {};
+
+    if (options.rubroId) {
+        filterList.rubroId = options.rubroId;
+    }
+
+    return filterList;
+};
+
 const getOrderList = (options) => {
     const orderList = [];
 
@@ -49,6 +64,15 @@ const getPrevPage = (page) => {
 
 module.exports = async (options, limit, page = 1) => {
     const { count, rows } = await Product.findAndCountAll({
+        include: Object.keys(getFilterRubroList(options)).length
+            ? {
+                  model: Subrubro,
+                  include: {
+                      model: Rubro,
+                  },
+                  where: getFilterRubroList(options),
+              }
+            : null,
         where: getFilterList(options),
         order: getOrderList(options),
         offset: getOffset(limit, page),
