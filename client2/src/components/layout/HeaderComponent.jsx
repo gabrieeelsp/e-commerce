@@ -17,7 +17,7 @@ const HeaderComponent = () => {
                 <section  className="bg-purple-400">
                     <div className="max-w-5xl mx-auto py-4 flex justify-between items-center">
                         <h1 className="text-4xl font-medium"><Link>Intertienda</Link></h1>
-                        { !user && <Link className="text-sm">ACCEDER / REGISTRARSE</Link> }
+                        { !user && <Link to='/account/login' className="text-sm">ACCEDER / REGISTRARSE</Link> }
                         { user && <span className="text-sm">{ user.name }</span> }
                     </div>
                 </section>

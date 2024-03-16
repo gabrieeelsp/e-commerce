@@ -20,16 +20,15 @@ const RegisterForm = () => {
         password: '',
     })
 
-    const { status, error, user } = useSelector((state) => state.auth)
+    const { status, error } = useSelector((state) => state.auth)
 
     useEffect(() => {
         if (status === 'succeeded') navigate('/');
-        if (user) navigate('/');
 
         return () => {
             dispatch(formExited());
         }
-    }, [status, user, navigate, dispatch]);
+    }, [status, navigate, dispatch]);
 
     const handleChange = (event) => {
         const property = event.target.name;

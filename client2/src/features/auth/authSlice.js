@@ -5,6 +5,7 @@ const initialState = {
     user: null,
     status: null,
     error: null,
+    verified: false,
 }
 
 export const me = createAsyncThunk('auth/me', async (_, { rejectWithValue }) => {
@@ -79,6 +80,9 @@ export const authSlice = createSlice({
         formExited: (state) => {
             state.status = null;
             state.error = null;
+        },
+        userVerified: (state) => {
+            state.verified = true;
         }
     },
     extraReducers(builder) {
@@ -109,6 +113,7 @@ export const authSlice = createSlice({
             .addCase(login.rejected, (state, action) => {
                 state.status = 'error';
                 state.error = action.payload;
+                state.verified = true;
             })
 
             .addCase(me.fulfilled, (state, action) => {
@@ -117,10 +122,11 @@ export const authSlice = createSlice({
                     name: action.payload.name,
                     email: action.payload.email,
                 };
+                state.verified = true;
             })
     }
 })
 
-export const { formExited } = authSlice.actions;
+export const { formExited, userVerified } = authSlice.actions;
 
 export default authSlice.reducer;
