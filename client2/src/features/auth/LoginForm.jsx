@@ -2,11 +2,10 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { login, formExited } from "./authSlice"
 import validations from "../../utils/usersValidations"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const RegisterForm = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [userData, setUserData] = useState({
         email: '',
@@ -18,15 +17,14 @@ const RegisterForm = () => {
         password: '',
     })
 
-    const { status, error, user } = useSelector((state) => state.auth)
+    const { status, error } = useSelector((state) => state.auth)
 
     useEffect(() => {
-        if (user) navigate('/');
 
         return () => {
             dispatch(formExited());
         }
-    }, [user, navigate, dispatch]);
+    }, [dispatch]);
 
     const handleChange = (event) => {
         const property = event.target.name;
@@ -127,7 +125,7 @@ const RegisterForm = () => {
                 
             </form>
             <div className="text-center">
-                <p className="text-grey-dark text-sm text-slate-500">Don't have an account? <Link to='/account/register' className="no-underline text-blue font-bold text-purple-400 hover:text-purple-500">Create an Account</Link>.</p>
+                <p className="text-grey-dark text-sm text-slate-500">¿No tienes una cuenta? <Link to='/account/register' className="no-underline text-blue font-bold text-purple-400 hover:text-purple-500">Crear una cuenta</Link>.</p>
             </div>
         </>
     )
