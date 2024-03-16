@@ -35,13 +35,23 @@ const router = createBrowserRouter([
                 ]
             },
             {
-                path: 'auth/register',
-                element: <Register />,
+                path: 'account',
+                children: [
+                    {
+                        index: true,
+                        element: <h1>Account index</h1>
+                    },
+                    {
+                        path: 'register',
+                        element: <Register />,
+                    },
+                    {
+                        path: 'login',
+                        element: <Login />
+                    },
+                ]
             },
-            {
-                path: 'auth/login',
-                element: <Login />
-            }
+            
         ]
     },
 ])

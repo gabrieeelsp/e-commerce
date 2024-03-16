@@ -3,8 +3,10 @@ import LoginForm from "../../features/auth/LoginForm"
 const Login = () => {
     return (
         <>
-            <div className="d-flex align-items-center justify-content-center vh-100">
-                <LoginForm />
+            <div className="flex justify-center">
+                <div className="w-96">
+                    <LoginForm />
+                </div>
             </div>
             
         </>

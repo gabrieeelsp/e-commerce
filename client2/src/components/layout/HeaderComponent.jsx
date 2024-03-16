@@ -9,13 +9,16 @@ const HeaderComponent = () => {
 
     const { rubros } = useSelector((state) => state.rubros)
 
+    const { user } = useSelector((state) => state.auth)
+
     return (
         <>
             <header className="text-white">
                 <section  className="bg-purple-400">
                     <div className="max-w-5xl mx-auto py-4 flex justify-between items-center">
                         <h1 className="text-4xl font-medium"><Link>Intertienda</Link></h1>
-                        <button className="text-sm">ACCEDER / REGISTRARSE</button>                    
+                        { !user && <Link className="text-sm">ACCEDER / REGISTRARSE</Link> }
+                        { user && <span className="text-sm">{ user.name }</span> }
                     </div>
                 </section>
 

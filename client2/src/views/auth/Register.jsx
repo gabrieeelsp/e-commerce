@@ -3,10 +3,11 @@ import RegisterForm from "../../features/auth/RegisterForm"
 const Register = () => {
     return (
         <>
-            <div className="d-flex align-items-center justify-content-center vh-100">
-                <RegisterForm />
+            <div className="flex justify-center">
+                <div className="w-96">
+                    <RegisterForm />
+                </div>
             </div>
-            
         </>
     )
 }
