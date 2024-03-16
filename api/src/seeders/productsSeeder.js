@@ -40,6 +40,7 @@ module.exports = () => {
         { name: 'Grana de Color DECORMAGIC Rojo PAQ x1Kg', subrubroId: 3 },
         { name: 'Grana de Color DECORMAGIC Verde PAQ x1Kg', subrubroId: 3 },
         { name: 'Grana de Color DECORMAGIC Rosa PAQ x1Kg', subrubroId: 3 },
+        { name: 'Grana de Color DECORMAGIC Violeta PAQ x1Kg', subrubroId: 3 },
 
         // 4 Cortantes
         { name: 'Cortante Baby Shower COOPER', subrubroId: 4 },

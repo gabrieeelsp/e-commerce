@@ -53,7 +53,11 @@ export const productsSlice = createSlice({
             })
             .addCase(getAll.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.products = action.payload.data;
+                if ( action.payload.pagination.current_page === 1) {
+                    state.products = action.payload.data;
+                } else {
+                    state.products = state.products.concat(action.payload.data);
+                }
                 state.pagination.total_records = action.payload.pagination.total_pages;
                 state.pagination.current_page = action.payload.pagination.current_page;
                 state.pagination.total_pages = action.payload.pagination.total_pages;

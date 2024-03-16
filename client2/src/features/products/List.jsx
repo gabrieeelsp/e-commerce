@@ -1,30 +1,35 @@
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { getAll } from "./productsSlice";
+import { useSelector } from "react-redux"
+import InfiniteScroll from 'react-infinite-scroll-component';
+
 import Excerpt from "./Excerpt";
+import { useEffect, useState } from "react";
 
-const List = () => {
+const List = (props) => {
 
-    const dispatch = useDispatch();
+    const { fetchMoreData } = props;
 
-    const { status, error, products } = useSelector((state) => state.products)
+    const { products } = useSelector((state) => state.products)
+    const { current_page, total_pages } = useSelector((state) => state.products.pagination)
 
-    let content;
-    if (status === 'pending') {
-        content = <p>"Loading..."</p>;
-    } else if (status === 'succeeded') {
-        content = (
-            <div className="grid grid-cols-3 gap-3">
-                {products.map(product => <Excerpt key={product.id} id={product.id} name={product.name} /> )}
-            </div>
-        )
-    } else if (status === 'error') {
-        content = <p>{error}</p>;
-    }
+    const [hasMore, setHasMore] = useState(false);
+    useEffect(() => {
+        setHasMore(current_page !== total_pages)
+    }, [current_page, total_pages])
 
     return (
         <section>
-            {content}
+                <InfiniteScroll
+                className="grid grid-cols-3 gap-3"
+                    dataLength={products.length}
+                    next={fetchMoreData}
+                    hasMore={hasMore}
+                    loader={<h4>Cargando...</h4>}
+                    endMessage={<p>No hay más productos para cargar</p>}
+                >
+                    {products.map((product) => (
+                        <Excerpt key={product.id} id={product.id} name={product.name} />
+                    ))}
+                </InfiniteScroll>
         </section>
     )
 }
