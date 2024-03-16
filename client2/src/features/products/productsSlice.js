@@ -32,12 +32,10 @@ const initialState = {
         total_records: null,
         current_page: 1,
         total_pages: null,
-        limit: 5,
+        limit: 3,
     },
 
     filters: {
-        rubroId: null,
-        subrubroId: null,
         name: '',
     }
 }
@@ -46,14 +44,7 @@ export const productsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
-        rubroIdChanged: (state, action) => {
-            state.filters.rubroId = action.payload;
-            state.filters.subrubroId = null;
-        },
-        subrubroChanged: (state, action) => {
-            state.filters.rubroId = action.payload.rubroId
-            state.filters.subrubroId = action.payload.subrubroId
-        }
+
     },
     extraReducers (builder) {
         builder
@@ -75,6 +66,6 @@ export const productsSlice = createSlice({
     }
 })
 
-export const { rubroIdChanged, subrubroChanged } = productsSlice.actions;
+export const { rubroChanged, subrubroChanged } = productsSlice.actions;
 
 export default productsSlice.reducer;

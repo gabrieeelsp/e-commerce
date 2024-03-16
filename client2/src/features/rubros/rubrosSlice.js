@@ -42,5 +42,10 @@ export const rubrosSlice = createSlice({
     }
 })
 
+export const getOneByName = (state, name) => {
+    const rubro = state.rubros.rubros.filter((rubro) => rubro.name.toUpperCase() === name.toUpperCase())
+    return rubro;
+}
+
 export default rubrosSlice.reducer;
 

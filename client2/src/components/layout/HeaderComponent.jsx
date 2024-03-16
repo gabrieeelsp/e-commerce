@@ -1,23 +1,14 @@
 import { Link } from "react-router-dom"
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-import { rubroIdChanged, subrubroChanged } from "../../features/products/productsSlice"
 
 import HeaderMenuComponent from "./HeaderMenuComponent"
 // import HeaderMenuComponentFull from "./HeaderMenuComponentFull"
 
 const HeaderComponent = () => {
-    const dispatch = useDispatch();
 
     const { rubros } = useSelector((state) => state.rubros)
 
-    const handlerClickRubro = (rubroId) => {
-        dispatch(rubroIdChanged(rubroId))
-    }
-
-    const handlerClickSubrubro = (rubroId, subrubroId) => {
-        dispatch(subrubroChanged({rubroId, subrubroId}));
-    }
     return (
         <>
             <header className="text-white">
@@ -33,7 +24,7 @@ const HeaderComponent = () => {
 
                         {
                             rubros && 
-                                rubros.map((rubro) => <HeaderMenuComponent key={rubro.id} rubro={rubro} handlerClickRubro={handlerClickRubro} handlerClickSubrubro={handlerClickSubrubro} />)
+                                rubros.map((rubro) => <HeaderMenuComponent key={rubro.id} rubro={rubro}  />)
                         }
 
                     </div>

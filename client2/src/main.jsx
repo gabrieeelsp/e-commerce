@@ -25,8 +25,14 @@ const router = createBrowserRouter([
                 element: <Home />,
             },
             {
-                path: 'products',
-                element: <Products />
+                path: ':rubroName',
+                element: <Products />,
+                children: [
+                    {
+                        path: ':subrubroName',
+                        element: <Products />,
+                    }
+                ]
             },
             {
                 path: 'auth/register',
