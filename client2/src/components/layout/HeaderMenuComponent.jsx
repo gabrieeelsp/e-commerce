@@ -1,7 +1,10 @@
 import {   createRef, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+
+import slugify from 'slugify'
 
 const HeaderMenuComponent = (props) => {
-    const { rubro, handlerClickRubro, handlerClickSubrubro } = props;
+    const { rubro } = props;
 
     const divRef = useRef(null)
     const menuRef = useRef(null);
@@ -22,11 +25,9 @@ const HeaderMenuComponent = (props) => {
 
     return (
         <div className="py-3" ref={divRef} onMouseEnter={handleToggle} onMouseLeave={handleToggle}>
-            <button className="uppercase" onClick={() => handlerClickRubro(rubro.id)}>
-                { rubro.name }
-            </button>
-            <div ref={menuRef} className="hidden absolute mt-3 min-w-[350px]  bg-white rounded-md shadow-xl" onTransitionEnd={console.log('termino')}>
-            { rubro.subrubros.map((subrubro) => <a href="#" key={subrubro.id} className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white" onClick={() => handlerClickSubrubro(rubro.id, subrubro.id)}>{subrubro.name}</a>)} 
+            <Link className="uppercase" to={`/${slugify(rubro.name, {lower: true, strict: true})}`} >{rubro.name}</Link>
+            <div ref={menuRef} className="hidden absolute mt-3 min-w-[350px]  bg-white rounded-md shadow-xl" >
+            { rubro.subrubros.map((subrubro) => <Link to={`/${slugify(rubro.name, { lower: true, strict: true })}/${slugify(subrubro.name, {lower: true, strict: true})}`} key={subrubro.id} className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white" >{subrubro.name}</Link>)} 
             </div>
         </div>    
     )

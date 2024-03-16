@@ -8,12 +8,6 @@ const List = () => {
     const dispatch = useDispatch();
 
     const { status, error, products } = useSelector((state) => state.products)
-    const { rubroId, subrubroId } = useSelector((state) => state.products.filters)
-    const { limit, current_page } = useSelector((state) => state.products.pagination)
-
-    useEffect(() => {
-        dispatch(getAll({limit, current_page, rubroId, subrubroId}));
-    }, [dispatch, limit, current_page, rubroId, subrubroId])
 
     let content;
     if (status === 'pending') {
