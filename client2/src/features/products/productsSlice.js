@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import httpService from '../../services/http.service';
 
 export const getAll = createAsyncThunk('products/getall', async ({limit, current_page, rubroId, subrubroId}, { rejectWithValue }) => {
     try {
-        const response = await axios.get('products', {
+        const response = await httpService.get('products', {
             params: {
                 limit,
                 page: current_page,
