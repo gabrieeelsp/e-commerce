@@ -5,8 +5,8 @@ import { store } from './app/store.js'
 
 import './index.css'
 
-import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:8080/'
+// import axios from 'axios'
+// axios.defaults.baseURL = 'http://localhost:8080/'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'

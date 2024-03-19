@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import httpService from '../../services/http.service';
 
 const initialState = {
     user: null,
@@ -8,34 +8,42 @@ const initialState = {
     verified: false,
 }
 
-export const me = createAsyncThunk('auth/me', async (_, { rejectWithValue }) => {
-    console.log('me')
+export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
+    console.log('saliendo')
     try {
-        const token = localStorage.getItem('accessToken');
-        if (token) {
-            const config = {
-                headers: {
-                    'Authorization': token,
-                }
-            }
-            const response = await axios.get('users/me', config );
+        const response = await httpService.post('users/signout');
 
-            return response.data;
-        }
+        return response.data;
     } catch (error) {
-        if (error.response && error.response.data.errors) {
-            return rejectWithValue(error.response.data.errors)
-        }else if (error.response && error.response.data.error) {
+        if ( error.response && error.response.data.error ) {
+            return rejectWithValue(error.response.data.error)
+        }
+        return rejectWithValue(error.message)
+    } finally {
+        localStorage.removeItem('accessToken');
+    }
+})
+
+export const me = createAsyncThunk('auth/me', async (_, { rejectWithValue }) => {
+    try {
+        const response = await httpService.get('users/me');
+
+        return response.data;
+    } catch (error) {
+        localStorage.removeItem('accessToken');
+
+        if (error.response && error.response.data.error) {
             return rejectWithValue(error.response.data.error)
         } else {
             return rejectWithValue(error.message)
         }
     }
+
 })
 
 export const login = createAsyncThunk('auth/login', async ({email, password}, { rejectWithValue }) => {
     try {
-        const response = await axios.post('users/signin', {
+        const response = await httpService.post('users/signin', {
             email,
             password,
         })
@@ -56,7 +64,7 @@ export const login = createAsyncThunk('auth/login', async ({email, password}, { 
 
 export const register = createAsyncThunk('auth/register', async ({name, email, password}, { rejectWithValue }) => {
     try {
-        const response = await axios.post('users/signup', {
+        const response = await httpService.post('users/signup', {
             name,
             email,
             password,
@@ -117,12 +125,32 @@ export const authSlice = createSlice({
             })
 
             .addCase(me.fulfilled, (state, action) => {
+                state.status = 'succeeded';
                 state.user = {
                     id: action.payload.id,
                     name: action.payload.name,
                     email: action.payload.email,
                 };
                 state.verified = true;
+            })
+            .addCase(me.rejected, (state, action) => {
+                state.user = null;
+                state.status = 'error';
+                state.error = action.payload;
+                state.verified = true;
+            })
+
+            .addCase(logout.pending, (state) => {
+                state.status = 'pending';
+            })
+            .addCase(logout.fulfilled, (state) => {
+                state.status = 'succeeded';
+                state.user = null;
+            })
+            .addCase(logout.rejected, (state, action) => {
+                state.status = 'error';
+                state.error = action.payload;
+                state.user = null;
             })
     }
 })

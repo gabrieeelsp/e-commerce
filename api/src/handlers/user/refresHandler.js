@@ -8,7 +8,7 @@ const refreshHandler = async (req, res) => {
 
         return res.status(200).json({ token: resp });
     } catch (error) {
-        res.status(403).json({ error: error.message });
+        return res.status(401).json({ error: error.message });
     }
 };
 

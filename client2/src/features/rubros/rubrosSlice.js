@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import httpService from '../../services/http.service';
 
 export const getAll = createAsyncThunk('rubros/getall', async (_, { rejectWithValue }) => {
     try {
-        const response = await axios.get('rubros');
-        
+        const response = await httpService.get('rubros');
+
         return response.data;
     } catch (error) {
         if (error.response && error.response.error) {

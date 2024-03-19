@@ -1,15 +1,22 @@
 import { Link } from "react-router-dom"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 import HeaderMenuComponent from "./HeaderMenuComponent"
+import { logout } from "../../features/auth/authSlice";
 // import HeaderMenuComponentFull from "./HeaderMenuComponentFull"
 
 const HeaderComponent = () => {
 
+    const dispatch = useDispatch();
+
     const { rubros } = useSelector((state) => state.rubros)
 
-    const { user } = useSelector((state) => state.auth)
+    const { user, verified } = useSelector((state) => state.auth)
+
+    const handlerClickLogout = () => {
+        dispatch(logout())
+    }
 
     return (
         <>
@@ -17,8 +24,18 @@ const HeaderComponent = () => {
                 <section  className="bg-purple-400">
                     <div className="max-w-5xl mx-auto py-4 flex justify-between items-center">
                         <h1 className="text-4xl font-medium"><Link>Intertienda</Link></h1>
-                        { !user && <Link to='/account/login' className="text-sm">ACCEDER / REGISTRARSE</Link> }
-                        { user && <span className="text-sm">{ user.name }</span> }
+                        { verified && (
+                            <>
+                            { !user && <Link to='/account/login' className="text-sm">ACCEDER / REGISTRARSE</Link> }
+                            { user && (
+                                <div>
+                                    <span className="text-sm">{ user.name }</span>
+                                    <button className="ml-3" onClick={handlerClickLogout}>Salir</button>
+                                </div>
+                            ) }
+                            </>
+                        )}
+                        
                     </div>
                 </section>
 
