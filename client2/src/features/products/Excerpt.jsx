@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import slugify from "slugify";
 
 const Excerpt = (porps) => {
     const {  name } = porps;
@@ -11,9 +12,9 @@ const Excerpt = (porps) => {
                 </Link>
 
                 <div className="mt-4 px-5 pb-1">
-                    <a href="#">
+                    <Link to={`/products/${slugify(name, { lower: true, strict: true})}`}>
                         <h5 className="text-md tracking-tight text-slate-900">{name}</h5>
-                    </a>
+                    </Link>
                     <div className="mt-2 mb-2 flex items-center justify-between">
                         <p>
                             <span className="text-2xl font-bold text-slate-900">$449</span>&nbsp;

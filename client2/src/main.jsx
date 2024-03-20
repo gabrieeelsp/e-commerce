@@ -13,7 +13,9 @@ import App from './App'
 import Home from './views/Home'
 import Register from './views/auth/Register.jsx'
 import Login from './views/auth/Login.jsx'
+import Explorer from './views/Explorer.jsx'
 import Products from './views/Products.jsx'
+import Product from './views/Product.jsx'
 
 const router = createBrowserRouter([
     {
@@ -26,12 +28,25 @@ const router = createBrowserRouter([
             },
             {
                 path: ':rubroName',
-                element: <Products />,
+                element: <Explorer />,
                 children: [
                     {
                         path: ':subrubroName',
-                        element: <Products />,
+                        element: <Explorer />,
                     }
+                ]
+            },
+            {
+                path: 'products',
+                children: [
+                    {
+                        index: true,
+                        element: <Products />,
+                    },
+                    {
+                        path: ':productName',
+                        element: <Product />,
+                    },
                 ]
             },
             {

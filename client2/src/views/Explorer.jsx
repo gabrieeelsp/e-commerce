@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import slugify from "slugify";
 import { getAll } from "../features/products/productsSlice";
 
-const Products = () => {
+const Explorer = () => {
     let { rubroName, subrubroName } = useParams();
 
     const dispatch = useDispatch();
@@ -61,4 +61,4 @@ const Products = () => {
     )
 }
 
-export default Products
+export default Explorer
