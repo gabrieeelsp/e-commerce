@@ -13,6 +13,10 @@ module.exports = (sequelize) => {
                 type: DataTypes.STRING,
                 unique: true,
             },
+            url: {
+                type: DataTypes.STRING,
+                unique: true,
+            },
         },
         {
             tableName: 'products',
