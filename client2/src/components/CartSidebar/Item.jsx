@@ -2,6 +2,7 @@ import { IoTrashOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, removeItem } from "../../features/cart/cartSlice";
 import { useEffect, useState } from "react";
+import { getSubtotal, toMoney } from "../../utils/calcs";
 
 
 const Item = (props) => {
@@ -39,6 +40,7 @@ const Item = (props) => {
     }, [status, error, isLoading])
 
 
+
     return (
         <>
             <div className="flex justify-start align-middle mb-3">
@@ -50,7 +52,7 @@ const Item = (props) => {
                         <span>{item.product.name}</span>
                         <button onClick={handlerClickRemove}><IoTrashOutline /></button>
                     </div>
-                    <div>
+                    <div className="flex justify-between mt-2">
                         
                         <div className="w-24 flex justify-between botder border-gray-200 border-2 text-sm">
                             <button 
@@ -70,6 +72,10 @@ const Item = (props) => {
                                 onClick={handlerClickIncrement}
                                 disabled={isLoading}
                             >+</button>
+                        </div>
+                        <div>
+                            <span className="text-sm">{toMoney(item.product.price)} x {item.quantity} = </span>
+                            <span>{toMoney(getSubtotal(item))}</span>
                         </div>
                         
                     </div>
