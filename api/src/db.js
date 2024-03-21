@@ -53,7 +53,7 @@ Sale.hasMany(Saleitem);
 
 Sale.belongsTo(User, {
     foreignKey: {
-        allowNull: false,
+        allowNull: true,
     },
 });
 User.hasMany(Sale);

@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { addItem } from "../cart/cartSlice";
 
 const ProductCard = () => {
     const { product } = useSelector((state) => state.product)
+
+    const dispatch = useDispatch();
 
     const [cant, setCant] = useState(1)
 
@@ -16,6 +19,10 @@ const ProductCard = () => {
 
     const handlerDecrementCantidad = () => {
         setCant(cant => cant - 1)
+    }
+
+    const handlerClickAddToCart = () => {
+        dispatch(addItem({productId: product.id, quantity: cant}))
     }
 
     return (
@@ -48,7 +55,10 @@ const ProductCard = () => {
                             onClick={handlerIncrementCantidad}
                         >+</button>
                     </div>
-                    <button className="w-40 ml-5 border border-purple-300 text-purple-500 rounded-lg text-sm hover:bg-purple-300 hover:text-white">Añadir al carrito</button>
+                    <button 
+                        className="w-40 ml-5 border border-purple-300 text-purple-500 rounded-lg text-sm hover:bg-purple-300 hover:text-white"
+                        onClick={handlerClickAddToCart}
+                        >Añadir al carrito</button>
                 </div>
                 
             </div>
