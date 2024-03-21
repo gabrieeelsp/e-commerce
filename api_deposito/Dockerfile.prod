@@ -1,0 +1,15 @@
+FROM node:18.19.0-alpine3.17
+
+RUN apk update && apk add nano
+
+# Create app directory
+WORKDIR /usr/app
+
+COPY package*.json .
+
+RUN npm install
+
+# Bundle app source
+COPY . .
+
+CMD node index.js

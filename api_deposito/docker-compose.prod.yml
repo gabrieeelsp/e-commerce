@@ -1,0 +1,60 @@
+services:
+    app:
+        build: 
+            dockerfile: Dockerfile.prod
+        image: intertienda-app_prod
+        ports:
+            - ${PORT_EXT_PROD}:${PORT_APP_PROD}
+        environment:
+            - PORT_APP=${PORT_APP_PROD}
+            - DB_USER=${DB_USER}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - DB_NAME=${DB_NAME}
+            - DB_HOST=db
+            - DB_PORT=${DB_PORT}
+        volumes:
+            - ./:/app
+        depends_on:
+            db:
+                condition: service_healthy
+        networks:
+            example_network_prod:
+    
+    db:
+        #container_name: db
+        image: postgres:16.1-bullseye
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        #ports:
+        #    - "${DB_PORT}:5432"
+        environment:
+            - POSTGRES_DB=${DB_NAME}
+            - POSTGRES_USER=${DB_USER}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+        volumes:
+            - ./data_prod:/var/lib/postgresql/data
+        networks:
+            example_network_prod:
+  
+    pgadmin:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL_PROD}
+            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD_PROD}
+        ports:
+            - ${PGADMIN_PORT_EXT_PROD}:80
+        depends_on:
+            db:
+                condition: service_healthy
+        volumes:
+            - pgadmin-data_prod:/var/lib/pgadmin
+        networks:
+            example_network_prod:
+volumes:
+    pgadmin-data_prod:
+    
+networks:
+    example_network_prod:

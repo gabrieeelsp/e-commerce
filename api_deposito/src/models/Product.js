@@ -17,12 +17,8 @@ module.exports = (sequelize) => {
                 type: DataTypes.STRING,
                 unique: true,
             },
-            price: {
+            cost: {
                 type: DataTypes.DOUBLE,
-            },
-            external_id: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
             },
         },
         {

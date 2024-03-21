@@ -1,32 +1,33 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 
 module.exports = (sequelize) => {
     sequelize.define(
-        'product',
+        'user',
         {
             id: {
                 type: DataTypes.INTEGER,
-                autoIncrement: true,
                 primaryKey: true,
+                autoIncrement: true,
             },
             name: {
                 type: DataTypes.STRING,
-                unique: true,
-            },
-            url: {
-                type: DataTypes.STRING,
-                unique: true,
-            },
-            price: {
-                type: DataTypes.DOUBLE,
-            },
-            external_id: {
-                type: DataTypes.INTEGER,
                 allowNull: false,
+            },
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                unique: true,
+            },
+            password: {
+                type: DataTypes.STRING(60),
+            },
+            tokensRevokedAt: {
+                type: DataTypes.DATE,
+                defaultValue: Sequelize.NOW,
             },
         },
         {
-            tableName: 'products',
+            tableName: 'users',
             timestamps: false,
         },
     );
