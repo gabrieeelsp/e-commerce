@@ -17,6 +17,9 @@ module.exports = (sequelize) => {
                 type: DataTypes.STRING,
                 unique: true,
             },
+            price: {
+                type: DataTypes.DOUBLE,
+            },
         },
         {
             tableName: 'products',

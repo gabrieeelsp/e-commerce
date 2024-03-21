@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import HeaderMenuComponent from "./HeaderMenuComponent"
 import { logout } from "../../features/auth/authSlice";
+import Cart from "./Cart";
 // import HeaderMenuComponentFull from "./HeaderMenuComponentFull"
 
-const HeaderComponent = () => {
-
+const HeaderComponent = (props) => {
+    const { setShowCartSidebar } = props
     const dispatch = useDispatch();
 
     const { rubros } = useSelector((state) => state.rubros)
@@ -35,6 +36,8 @@ const HeaderComponent = () => {
                             ) }
                             </>
                         )}
+
+                        <Cart setShowCartSidebar={setShowCartSidebar} />
                         
                     </div>
                 </section>
