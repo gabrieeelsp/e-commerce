@@ -5,9 +5,9 @@ services:
         image: ecommerce-app_dev
         container_name: ecommerce-app_dev-cont
         ports:
-            - ${PORT_EXT_DEV}:${PORT_APP_DEV}
+            - ${PORT_EXT}:${PORT_APP}
         environment:
-            - PORT_APP=${PORT_APP_DEV}
+            - PORT_APP=${PORT_APP}
             - DB_USER=${DB_USER}
             - DB_PASSWORD=${DB_PASSWORD}
             - DB_NAME=${DB_NAME}
@@ -46,10 +46,10 @@ services:
         image: dpage/pgadmin4
         container_name: ecommerce-pgadmin_dev-cont
         environment:
-            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL_DEV}
-            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD_DEV}
+            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
         ports:
-            - ${PGADMIN_PORT_EXT_DEV}:80
+            - ${PGADMIN_PORT_EXT}:80
         depends_on:
             db:
                 condition: service_healthy
