@@ -6,13 +6,12 @@ import { getAll } from "./features/rubros/rubrosSlice"
 
 import HeaderComponent from './components/header/HeaderComponent'
 import CartSidebar from "./components/CartSidebar/CartSidebar"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { getCart } from "./features/cart/cartSlice"
 
 
-function App() {
 
-    const [showCartSidebar, setShowCartSidebar] = useState(false);
+function App() {
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -30,16 +29,18 @@ function App() {
 
     }, [dispatch])
 
-    
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const sidebarRef = useRef();
 
-    
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
     
     return (
         <>
             <div className="min-h-screen bg-white">
-                <CartSidebar showCartSidebar={showCartSidebar} setShowCartSidebar={setShowCartSidebar}  />
-                <HeaderComponent showCartSidebar={showCartSidebar} setShowCartSidebar={setShowCartSidebar} />
-
+                <HeaderComponent showCartSidebar={isSidebarOpen} setShowCartSidebar={setIsSidebarOpen} />
+                <CartSidebar isOpen={isSidebarOpen} onClose={toggleSidebar} ref={sidebarRef} />
                 <div className="max-w-5xl mx-auto mt-3">
                     <Outlet />
 

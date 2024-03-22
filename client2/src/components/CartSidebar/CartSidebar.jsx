@@ -3,21 +3,28 @@ import ItemsList from "./ItemsList";
 import Subtotal from "./Subtotal";
 import Total from "./Total";
 
-
-const CartSidebar = (props) => {
-    const { showCartSidebar, setShowCartSidebar } = props
+const Sidebar = ({ isOpen, onClose }) => {
     return (
-        <>
-            <div className={`top-0 right-0 w-[35vw] bg-white  fixed h-full z-40 ${showCartSidebar ? "translate-x-0 " : "translate-x-full"} ease-in-out duration-300`}>
-                <div className="flex justify-between align-middle text-white bg-purple-800 p-3">
+        <div>
+            {isOpen && (
+            <div
+                className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50"
+                onClick={onClose}
+            ></div>
+            )}
+            <div
+                className={`fixed top-0 right-0 h-full w-[500px] bg-white transition-transform duration-300 transform ${
+                isOpen ? 'translate-x-0' : 'translate-x-full'
+                } z-50`}
+            >
+                <div className="flex justify-between align-middle text-white bg-purple-500 p-3">
                     <h4 className="text-xl">Carrito de Compras</h4>
                     <button
                         className="text-3xl"
-                        onClick={() => setShowCartSidebar(false)}
+                        onClick={onClose}
                     ><IoCloseCircleOutline />
                     </button>
                 </div>
-
                 <div className="p-3">
                     <ItemsList />
                 </div>
@@ -34,8 +41,8 @@ const CartSidebar = (props) => {
                     <Total />
                 </div>
             </div>
-        </>
-    )
-}
+        </div>
+    );
+};
 
-export default CartSidebar
+export default Sidebar;
