@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import HeaderMenuComponent from "./HeaderMenuComponent"
 import { logout } from "../../features/auth/authSlice";
 import Cart from "./Cart";
+import SearchBar from "./SearchBar";
 // import HeaderMenuComponentFull from "./HeaderMenuComponentFull"
 
 const HeaderComponent = (props) => {
@@ -25,6 +26,7 @@ const HeaderComponent = (props) => {
                 <section  className="bg-purple-400">
                     <div className="max-w-5xl mx-auto py-4 flex justify-between items-center">
                         <h1 className="text-4xl font-medium"><Link>Intertienda</Link></h1>
+                        <SearchBar />
                         { verified && (
                             <>
                             { !user && <Link to='/account/login' className="text-sm">ACCEDER / REGISTRARSE</Link> }

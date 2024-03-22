@@ -5,10 +5,11 @@ const getFilterList = (options) => {
     const filterList = {};
 
     if (options.name) {
+        const q = options.name.replaceAll(' ', '%').toLowerCase();
         filterList.name = Sequelize.where(
             Sequelize.fn('lower', Sequelize.col('product.name')),
             'like',
-            `%${options.name.toLowerCase()}%`,
+            `%${q}%`,
         );
     }
 
