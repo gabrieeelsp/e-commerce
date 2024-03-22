@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import httpService from '../../services/http.service';
 
-export const getAll = createAsyncThunk('products/getall', async ({limit, current_page, rubroId, subrubroId}, { rejectWithValue }) => {
+export const getAll = createAsyncThunk('products/getall', async ({limit, current_page, rubroId, subrubroId, q}, { rejectWithValue }) => {
     try {
         const response = await httpService.get('products', {
             params: {
@@ -9,6 +9,7 @@ export const getAll = createAsyncThunk('products/getall', async ({limit, current
                 page: current_page,
                 rubroid: rubroId,
                 subrubroid: subrubroId,
+                name: q
             }
         });
         return response.data;
