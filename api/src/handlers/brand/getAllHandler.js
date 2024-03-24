@@ -3,46 +3,23 @@ const {
     validateOrderDirProducts,
     validateNumberGT0,
 } = require('../../utils/validations');
-const getAll = require('../../controllers/product/getAll');
+const getAll = require('../../controllers/brands/getAll');
 
 module.exports = async (req, res) => {
-    const {
-        name,
-        orderby,
-        orderdir,
-        limit,
-        page,
-        subrubroid,
-        rubroid,
-        brandid,
-    } = req.query;
+    const { orderby, orderdir, limit, page } = req.query;
 
     // validaciones
     const errorOrderBy = orderby ? validateOrderByProducts(orderby) : null;
     const errorOrderDir = orderdir ? validateOrderDirProducts(orderdir) : null;
     const errorLimit = limit ? validateNumberGT0(limit) : null;
     const errorPage = page ? validateNumberGT0(page) : null;
-    const errorSubrubroId = subrubroid ? validateNumberGT0(subrubroid) : null;
-    const errorRubroId = rubroid ? validateNumberGT0(rubroid) : null;
-    const errorBrandId = brandid ? validateNumberGT0(brandid) : null;
 
-    if (
-        errorOrderBy ||
-        errorOrderDir ||
-        errorLimit ||
-        errorPage ||
-        errorSubrubroId ||
-        errorRubroId ||
-        errorBrandId
-    ) {
+    if (errorOrderBy || errorOrderDir || errorLimit || errorPage) {
         const errors = {};
         if (errorOrderBy) errors.orderby = errorOrderBy;
         if (errorOrderDir) errors.orderdir = errorOrderDir;
         if (errorLimit) errors.limit = errorLimit;
         if (errorPage) errors.page = errorPage;
-        if (errorSubrubroId) errors.subrubroid = errorSubrubroId;
-        if (errorRubroId) errors.rubroid = errorRubroId;
-        if (errorBrandId) errors.brandid = errorBrandId;
         return res.status(400).json({ errors });
     }
 
@@ -51,14 +28,7 @@ module.exports = async (req, res) => {
 
     try {
         const resp = await getAll(
-            {
-                name,
-                orderby: orderByValue,
-                orderdir: orderDirValue,
-                subrubroId: subrubroid,
-                rubroId: rubroid,
-                brandId: brandid,
-            },
+            { orderby: orderByValue, orderdir: orderDirValue },
             limit ? Number(limit) : undefined,
             page ? Number(page) : undefined,
         );

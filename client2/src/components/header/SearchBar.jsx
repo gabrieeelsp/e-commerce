@@ -4,13 +4,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 
 const SearchBar = () => {
-
     const location = useLocation()
-    const params = new URLSearchParams(location.search)
-    const q = params.get('q')
+    
 
     useEffect(() => {
-        setName(q)
+        
+        const params = new URLSearchParams(location.search)
+        const q = params.get('q')
+        setName(q ? q : '')
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

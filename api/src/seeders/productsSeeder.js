@@ -8,31 +8,37 @@ module.exports = () => {
             name: 'Bizcochuelo 650gr Red NATALIA Chocolate',
             subrubroId: 1,
             price: 600.5,
+            brandId: 5,
         },
         {
             name: 'Bizcochuelo 650gr Red NATALIA Vainilla',
             subrubroId: 1,
             price: 700.5,
+            brandId: 5,
         },
         {
             name: 'Bizcochuelo 1Kg Red NATALIA Chocolate',
             subrubroId: 1,
             price: 800,
+            brandId: 5,
         },
         {
             name: 'Bizcochuelo 1Kg Red NATALIA Vainilla',
             subrubroId: 1,
             price: 900,
+            brandId: 5,
         },
         {
             name: 'Bizcochuelo 2Kg Red NATALIA Chocolate',
             subrubroId: 1,
             price: 1000,
+            brandId: 5,
         },
         {
             name: 'Bizcochuelo 2Kg Red NATALIA Vainilla',
             subrubroId: 1,
             price: 1200,
+            brandId: 5,
         },
 
         // 2 Premezclas
@@ -40,31 +46,37 @@ module.exports = () => {
             name: 'Premezcla para Prep. Brownie LEDEVIT PAQ x250g',
             subrubroId: 2,
             price: 200,
+            brandId: 4,
         },
         {
             name: 'Premezcla para Prep. Budín LEDEVIT PAQ x500g',
             subrubroId: 2,
             price: 250,
+            brandId: 4,
         },
         {
             name: 'Premezcla para Prep. Cupcake Chocolate LEDEVIT PAQ x250g',
             subrubroId: 2,
             price: 300,
+            brandId: 4,
         },
         {
             name: 'Premezcla para Prep. Cupcake Vainilla LEDEVIT PAQ x250g',
             subrubroId: 2,
             price: 350,
+            brandId: 4,
         },
         {
             name: 'Premezcla para Prep. Macarons LEDEVIT PAQ x250g',
             subrubroId: 2,
             price: 400,
+            brandId: 4,
         },
         {
             name: 'Premezcla para Prep. Tapitas de Alf LEDEVIT PAQ x250g',
             subrubroId: 2,
             price: 480,
+            brandId: 4,
         },
 
         // 3 Granas
@@ -72,36 +84,43 @@ module.exports = () => {
             name: 'Grana de Color DECORMAGIC Amarillo PAQ x1Kg',
             subrubroId: 3,
             price: 100,
+            brandId: 6,
         },
         {
             name: 'Grana de Color DECORMAGIC Azul PAQ x1Kg',
             subrubroId: 3,
             price: 100,
+            brandId: 6,
         },
         {
             name: 'Grana de Color DECORMAGIC Naranja PAQ x1Kg',
             subrubroId: 3,
             price: 100,
+            brandId: 6,
         },
         {
             name: 'Grana de Color DECORMAGIC Rojo PAQ x1Kg',
             subrubroId: 3,
             price: 100,
+            brandId: 6,
         },
         {
             name: 'Grana de Color DECORMAGIC Verde PAQ x1Kg',
             subrubroId: 3,
             price: 100,
+            brandId: 6,
         },
         {
             name: 'Grana de Color DECORMAGIC Rosa PAQ x1Kg',
             subrubroId: 3,
             price: 100,
+            brandId: 6,
         },
         {
             name: 'Grana de Color DECORMAGIC Violeta PAQ x1Kg',
             subrubroId: 3,
             price: 100,
+            brandId: 6,
         },
 
         // 4 Cortantes

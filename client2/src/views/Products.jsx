@@ -1,15 +1,20 @@
-import { useLocation } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import List from "../features/products/List"
-import SideBar from "../features/products/sidebar/SideBar"
+import SideBar from "../features/products/products/sidebar/SideBar"
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { getAll } from "../features/products/productsSlice";
+import { getOneByURL } from "../features/brands/brandsSlice";
 
 const Products = () => {
-    const location = useLocation()
-    const params = new URLSearchParams(location.search)
-    const q = params.get('q')
+
+    const [currentQueryParameters, setSearchParams] = useSearchParams();
+
+    const q = currentQueryParameters.get('q')
+    const brandURL = currentQueryParameters.get('brand')
+
+    const brand = useSelector((state) => getOneByURL(state, brandURL))
 
     const limit = 6;
 
@@ -22,11 +27,6 @@ const Products = () => {
 
     useEffect(() => {
         setCurrentPage(1)
-        dispatch(getAll({
-            limit, 
-            current_page: 1,
-            q,
-        }))
     }, [dispatch, q])
 
     useEffect(() => {
@@ -34,13 +34,15 @@ const Products = () => {
             limit, 
             current_page: currentPage,
             q,
+            brandId: brand ? brand.id : null,
         }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch, currentPage])
+    }, [dispatch, currentPage, q, brandURL])
 
     return (
         <div className="flex flex-row">
             <div className="w-60">
+                
                 <SideBar />
             </div>
             <div>

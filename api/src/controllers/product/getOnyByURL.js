@@ -1,7 +1,12 @@
-const { Product } = require('../../db');
+const { Product, Brand } = require('../../db');
 
 module.exports = async (url) => {
     const item = await Product.findOne({
+        include: [
+            {
+                model: Brand,
+            },
+        ],
         where: {
             url,
         },
