@@ -11,7 +11,8 @@ const BrandsFilter = () => {
     const [currentQueryParameters, setSearchParams] = useSearchParams();
 
     const handlerClickBrand = (brandName) => {
-        setSearchParams({brand:  slugify(brandName, {lower: true, strict: true})})
+        currentQueryParameters.append('brand',  slugify(brandName, {lower: true, strict: true}))
+        setSearchParams(currentQueryParameters)
     }   
     return (
         <>

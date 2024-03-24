@@ -27,7 +27,7 @@ const Products = () => {
 
     useEffect(() => {
         setCurrentPage(1)
-    }, [dispatch, q])
+    }, [q, brandURL])
 
     useEffect(() => {
         dispatch(getAll({
