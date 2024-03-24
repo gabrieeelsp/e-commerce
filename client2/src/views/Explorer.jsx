@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import List from "../features/products/List"
-import SideBar from "../features/products/sidebar/SideBar"
+import SideBar from "../features/products/explorer/sidebar/SideBar"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import slugify from "slugify";

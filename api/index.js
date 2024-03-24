@@ -3,10 +3,12 @@ const { conn } = require('./src/db');
 const productSeeder = require('./src/seeders/productsSeeder');
 const subrubrosSeeder = require('./src/seeders/subrubrosSeeder');
 const rubrosSeeder = require('./src/seeders/rubrosSeeder');
+const brandsSeeder = require('./src/seeders/brandsSeeder');
 
 const { PORT_APP } = process.env;
 
 conn.sync({ force: true }).then(() => {
+    brandsSeeder();
     rubrosSeeder();
     subrubrosSeeder();
     productSeeder();

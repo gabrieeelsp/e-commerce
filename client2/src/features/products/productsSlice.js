@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import httpService from '../../services/http.service';
 
-export const getAll = createAsyncThunk('products/getall', async ({limit, current_page, rubroId, subrubroId, q}, { rejectWithValue }) => {
+export const getAll = createAsyncThunk('products/getall', async ({limit, current_page, rubroId, subrubroId, q, brandId,}, { rejectWithValue }) => {
     try {
         const response = await httpService.get('products', {
             params: {
@@ -9,7 +9,8 @@ export const getAll = createAsyncThunk('products/getall', async ({limit, current
                 page: current_page,
                 rubroid: rubroId,
                 subrubroid: subrubroId,
-                name: q
+                name: q,
+                brandid: brandId
             }
         });
         return response.data;
@@ -29,6 +30,9 @@ const initialState = {
     products: [],
     status: null,
     error: null,
+    meta: {
+        brands: [],
+    },
     pagination: {
         total_records: null,
         current_page: 1,
@@ -63,6 +67,8 @@ export const productsSlice = createSlice({
                 state.pagination.current_page = action.payload.pagination.current_page;
                 state.pagination.total_pages = action.payload.pagination.total_pages;
                 state.pagination.total_records = action.payload.pagination.total_pages;
+
+                state.meta.brands = action.payload.meta.brands
             })
             .addCase(getAll.rejected, (state, action) => {
                 state.status = 'error';

@@ -17,17 +17,19 @@ const getFilterList = (options) => {
         filterList.subrubroId = options.subrubroId;
     }
 
-    return filterList;
-};
-
-const getFilterRubroList = (options) => {
-    const filterList = {};
-
-    if (options.rubroId) {
-        filterList.rubroId = options.rubroId;
+    if (options.brandId) {
+        filterList.brandId = options.brandId;
     }
 
     return filterList;
+};
+
+const getFilterRubro = (options) => {
+    if (options.rubroId) {
+        return { rubroId: options.rubroId };
+    }
+
+    return null;
 };
 
 const getOrderList = (options) => {
@@ -63,17 +65,32 @@ const getPrevPage = (page) => {
     return page - 1;
 };
 
+const getIncludeOption = (options) => {
+    const includes = [];
+
+    if (getFilterRubro(options))
+        includes.push({
+            model: Subrubro,
+            include: {
+                model: Rubro,
+            },
+            where: getFilterRubro(options),
+        });
+
+    return includes;
+};
+
 module.exports = async (options, limit, page = 1) => {
+    const respBrands = await Product.findAll({
+        attributes: [
+            Sequelize.fn('DISTINCT', Sequelize.col('brandId')),
+            'brandId',
+        ],
+        where: getFilterList(options),
+    });
+
     const { count, rows } = await Product.findAndCountAll({
-        include: Object.keys(getFilterRubroList(options)).length
-            ? {
-                  model: Subrubro,
-                  include: {
-                      model: Rubro,
-                  },
-                  where: getFilterRubroList(options),
-              }
-            : null,
+        include: getIncludeOption(options),
         where: getFilterList(options),
         order: getOrderList(options),
         offset: getOffset(limit, page),
@@ -82,6 +99,9 @@ module.exports = async (options, limit, page = 1) => {
 
     return {
         data: rows,
+        meta: {
+            brands: respBrands.map((product) => product.brandId),
+        },
         pagination: {
             total_records: count,
             current_page: limit ? page : null,
