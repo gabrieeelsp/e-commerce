@@ -27,7 +27,12 @@ const List = (props) => {
                     endMessage={<p>No hay más productos para cargar</p>}
                 >
                     {products.map((product) => (
-                        <Excerpt key={product.id} id={product.id} name={product.name} />
+                        <Excerpt 
+                            key={product.id} 
+                            id={product.id} 
+                            name={product.name} 
+                            price={product.price}
+                            />
                     ))}
                 </InfiniteScroll>
         </section>
