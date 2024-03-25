@@ -59,13 +59,20 @@ const initialState = {
 
     status: null,
     error: null,
+
+    newItem: null,
 }
 
 export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        
+        setNewItem: (state, action) => {
+            state.newItem = action.payload
+        },
+        removeNewItem: (state) => {
+            state.newItem = null
+        }
     },
     extraReducers(builder) {
         builder
@@ -123,5 +130,7 @@ export const cartSlice = createSlice({
             })
     }
 })
+
+export const { setNewItem, removeNewItem } = cartSlice.actions
 
 export default cartSlice.reducer;

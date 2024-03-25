@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import slugify from "slugify";
 import { toMoney } from "../../utils/calcs";
 import { useEffect, useState } from "react";
-import { addItem } from "../cart/cartSlice";
+import { addItem, setNewItem } from "../cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Excerpt = (porps) => {
@@ -23,6 +23,7 @@ const Excerpt = (porps) => {
     }
 
     const handlerClicAddItem = () => {
+        setIsLoading(true)
         dispatch(addItem({productId: id, quantity: cant}))
     }
 
@@ -30,8 +31,17 @@ const Excerpt = (porps) => {
 
     const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
-        if ((status === 'succeedded' || status === 'error') && isLoading ) setIsLoading(false)
-    }, [status, error, isLoading])
+        if ((status === 'succeedded') && isLoading ) {
+            dispatch(setNewItem({
+                name, price, quantity: cant
+            }))
+            
+        }
+        if ((status === 'succeedded' || status === 'error') && isLoading ) {
+            setIsLoading(false)
+            
+        }
+    }, [dispatch, status, error, isLoading])
 
     return (
         <>
@@ -72,8 +82,20 @@ const Excerpt = (porps) => {
                         </div>
                         <button 
                             onClick={handlerClicAddItem}
-                            className=" px-3 border border-purple-300 text-purple-500 rounded-lg col-span-2 text-sm hover:bg-purple-300 hover:text-white">
-                            Añadir al carrito
+                            className={`w-32 border border-purple-300 text-purple-500 rounded-lg col-span-2 text-sm hover:bg-purple-300 hover:text-white ${isLoading ? 'bg-purple-300': ''}`}
+                            disabled={isLoading}
+                            >
+                            {!isLoading ? 
+                                <span>Añadir al carrito</span> 
+                                : 
+                                <span className="w-full flex justify-center">
+                                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-100" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-100" fill="currentColor" d="M4 12a8 8 0 018-8V2.83a1 1 0 112 0V4a8 8 0 01-8 8z"></path>
+                                    </svg>
+                                </span>
+                            }
+                            
                         </button>
                         
                     </div>
