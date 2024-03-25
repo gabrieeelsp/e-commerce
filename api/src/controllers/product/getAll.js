@@ -21,6 +21,12 @@ const getFilterList = (options) => {
         filterList.brandId = options.brandId;
     }
 
+    if (options.minPrice && options.maxPrice) {
+        filterList.price = {
+            [Sequelize.Op.between]: [options.minPrice, options.maxPrice],
+        };
+    }
+
     return filterList;
 };
 
@@ -89,6 +95,14 @@ module.exports = async (options, limit, page = 1) => {
         where: getFilterList(options),
     });
 
+    const respPrices = await Product.findAll({
+        attributes: [
+            [Sequelize.fn('min', Sequelize.col('price')), 'minPrice'],
+            [Sequelize.fn('max', Sequelize.col('price')), 'maxPrice'],
+        ],
+        where: getFilterList(options),
+    });
+
     const { count, rows } = await Product.findAndCountAll({
         include: getIncludeOption(options),
         where: getFilterList(options),
@@ -101,6 +115,10 @@ module.exports = async (options, limit, page = 1) => {
         data: rows,
         meta: {
             brands: respBrands.map((product) => product.brandId),
+            prices: {
+                min: respPrices[0].dataValues.minPrice,
+                max: respPrices[0].dataValues.maxPrice,
+            },
         },
         pagination: {
             total_records: count,

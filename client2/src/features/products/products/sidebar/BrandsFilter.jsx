@@ -17,10 +17,10 @@ const BrandsFilter = () => {
     return (
         <>
             <div>
-                <span>Marca</span>
+                <span className="font-bold">Marca</span>
                 { brandsActive &&
                     brandsActive.filter((brandActive) => brandActive).map((b) => (
-                        <div key={'brand-'+brands[b].id}>
+                        <div key={'brand-'+brands[b].id} className="ml-2">
                             <button onClick={() => handlerClickBrand(brands[b].url)} >{brands[b].name}</button>
                         </div>
                     ))}
