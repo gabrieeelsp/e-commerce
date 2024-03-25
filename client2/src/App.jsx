@@ -48,7 +48,7 @@ function App() {
             <div className="min-h-screen bg-white">
                 <HeaderComponent showCartSidebar={isSidebarOpen} setShowCartSidebar={setIsSidebarOpen} />
                 <CartSidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
-                <div className="max-w-5xl mx-auto mt-3">
+                <div className="max-w-6xl mx-auto mt-3">
                     { Object.keys(brands).length !== 0 && <Outlet />}
 
                 </div>
