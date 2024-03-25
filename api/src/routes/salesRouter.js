@@ -11,6 +11,6 @@ const salesRouter = Router();
 salesRouter.get('/:saleid', getOneByIdHandler);
 
 salesRouter.post('/add_item', delayMiddleware, addItemHandler);
-salesRouter.delete('/remove_item', removeItemHandler);
+salesRouter.delete('/remove_item', delayMiddleware, removeItemHandler);
 
 module.exports = salesRouter;
