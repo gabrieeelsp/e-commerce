@@ -11,6 +11,7 @@ const Item = (props) => {
     const dispatch = useDispatch();
 
     const handlerClickRemove = () => {
+        setIsLoading(true)
         dispatch(removeItem({productId: item.product.id}))
     }
 
@@ -50,23 +51,37 @@ const Item = (props) => {
                 <div className="ml-2 w-full">
                     <div className="flex justify-between">
                         <span>{item.product.name}</span>
-                        <button onClick={handlerClickRemove}><IoTrashOutline /></button>
+                        <button 
+                            onClick={handlerClickRemove}
+                            disabled={isLoading}
+                        ><IoTrashOutline /></button>
                     </div>
                     <div className="flex justify-between mt-2">
                         
+
                         <div className="w-24 flex justify-between botder border-gray-200 border-2 text-sm">
                             <button 
                                 className="flex-1  font-bold py-1 p-2"
                                 onClick={handlerClickDecrement}
                                 disabled={item.quantity === 1 || (status === 'pending' && isLoading)}
                             >-</button>
-                            <input 
+                            { !isLoading && (
+                                <input 
                                 value={cant}
                                 onChange={handlerChangeCantidad}
                                 type="text" 
-                                className={`w-12 text-center focus:outline-none ${isLoading ? 'text-gray-100' : ''}`} 
+                                className={`w-12 text-center focus:outline-none ${isLoading ? 'text-gray-500' : ''}`} 
                                 disabled
                             />
+                            ) }
+                            {isLoading && (
+                                <span className="w-full flex justify-center align-middle ">
+                                    <svg className="animate-spin h-5 w-5 text-gray-300 mt-1 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-100" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-100" fill="currentColor" d="M4 12a8 8 0 018-8V2.83a1 1 0 112 0V4a8 8 0 01-8 8z"></path>
+                                    </svg>
+                                </span>
+                            )}
                             <button 
                                 className="flex-1  font-bold py-1 p-2"
                                 onClick={handlerClickIncrement}
