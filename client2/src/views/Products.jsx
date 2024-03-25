@@ -16,6 +16,9 @@ const Products = () => {
 
     const brand = useSelector((state) => getOneByURL(state, brandURL))
 
+    const minPrice = currentQueryParameters.get('minPrice')
+    const maxPrice = currentQueryParameters.get('maxPrice')
+
     const limit = 6;
 
     const dispatch = useDispatch()
@@ -35,9 +38,11 @@ const Products = () => {
             current_page: currentPage,
             q,
             brandId: brand ? brand.id : null,
+            minPrice,
+            maxPrice,
         }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch, currentPage, q, brandURL])
+    }, [dispatch, currentPage, q, brandURL, minPrice, maxPrice])
 
     return (
         <div className="flex flex-row">

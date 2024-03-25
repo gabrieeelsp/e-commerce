@@ -15,6 +15,8 @@ module.exports = async (req, res) => {
         subrubroid,
         rubroid,
         brandid,
+        minprice,
+        maxprice,
     } = req.query;
 
     // validaciones
@@ -25,6 +27,8 @@ module.exports = async (req, res) => {
     const errorSubrubroId = subrubroid ? validateNumberGT0(subrubroid) : null;
     const errorRubroId = rubroid ? validateNumberGT0(rubroid) : null;
     const errorBrandId = brandid ? validateNumberGT0(brandid) : null;
+    const errorMinPrice = minprice ? validateNumberGT0(minprice) : null;
+    const errorMaxPrice = minprice ? validateNumberGT0(maxprice) : null;
 
     if (
         errorOrderBy ||
@@ -33,7 +37,9 @@ module.exports = async (req, res) => {
         errorPage ||
         errorSubrubroId ||
         errorRubroId ||
-        errorBrandId
+        errorBrandId ||
+        errorMinPrice ||
+        errorMaxPrice
     ) {
         const errors = {};
         if (errorOrderBy) errors.orderby = errorOrderBy;
@@ -43,6 +49,8 @@ module.exports = async (req, res) => {
         if (errorSubrubroId) errors.subrubroid = errorSubrubroId;
         if (errorRubroId) errors.rubroid = errorRubroId;
         if (errorBrandId) errors.brandid = errorBrandId;
+        if (errorMinPrice) errors.minprice = errorMinPrice;
+        if (errorMaxPrice) errors.maxprice = errorMaxPrice;
         return res.status(400).json({ errors });
     }
 
@@ -58,6 +66,8 @@ module.exports = async (req, res) => {
                 subrubroId: subrubroid,
                 rubroId: rubroid,
                 brandId: brandid,
+                minPrice: minprice,
+                maxPrice: maxprice,
             },
             limit ? Number(limit) : undefined,
             page ? Number(page) : undefined,
