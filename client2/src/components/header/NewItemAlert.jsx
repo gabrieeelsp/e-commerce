@@ -3,6 +3,9 @@ import { toMoney } from "../../utils/calcs"
 import { useDispatch, useSelector } from "react-redux"
 import { removeNewItem } from "../../features/cart/cartSlice"
 
+import { IoClose } from "react-icons/io5";
+
+
 const NewItemAlert = () => {
     const dispatch = useDispatch()
 
@@ -16,16 +19,23 @@ const NewItemAlert = () => {
             setVisible(true)
             timerOpacity = setTimeout(() => {
                 setVisible(false)
-            }, 4000)
+            }, 40000)
             timer = setTimeout(() => {
                 dispatch(removeNewItem())
-            }, 5000)
+            }, 50000)
         } else {
             setVisible(false)
         }
 
         return () => {clearTimeout(timer), clearTimeout(timerOpacity)}
     }, [dispatch, newItem])
+
+    const handlerCloseButton = () => {
+        setVisible(false)
+        setTimeout(() => {
+            dispatch(removeNewItem())
+        }, 1000)
+    }
     
     return (
         <>
@@ -43,6 +53,14 @@ const NewItemAlert = () => {
                         <div className="flex justify-center ">
                             <span className="mt-1 text-slate-900">Agregado al carrito con éxito!</span>
                         </div>
+                    </div>
+                    <div>
+                        <button 
+                            onClick={handlerCloseButton}
+                            className="text-purple-900 text-2xl"
+                        >
+                            <IoClose />
+                        </button>
                     </div>
                 </div>
                 <hr className="text-slate-200 mt-3" />
