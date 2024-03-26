@@ -12,7 +12,7 @@ const AddItemCoomponent = (props) => {
         setCant(e.target.value)
     }
     const handlerClickIncrement = () => {
-        setCant((cant) => cant + 1)
+        setCant((cant) => Number(cant) + 1)
     }
 
     const handlerClickDecrement = () => {
@@ -46,25 +46,25 @@ const AddItemCoomponent = (props) => {
                 <button 
                     className="flex-1  font-bold py-1 p-2"
                     onClick={handlerClickDecrement}
-                    disabled={cant === 1 || (status === 'pending' && isLoading)}
+                    disabled={cant === 1 || (status === 'pending' && isLoading) || isNaN(cant)}
                 >-</button>
                 <input 
                     value={cant}
                     onChange={handlerChangeCantidad}
                     type="text" 
-                    className={`${size === 'sm' ? 'w-12' : 'w-14'} text-center focus:outline-none ${isLoading ? 'text-gray-400' : ''}`} 
-                    disabled
+                    className={`${size === 'sm' ? 'w-12' : 'w-14'} text-center focus:outline-none ${isLoading ? 'text-gray-400' : ''} ${isNaN(cant) ? 'text-red-500' : ''} `} 
+                    disabled={isLoading}
                 />
                 <button 
                     className="flex-1  font-bold py-1 p-2"
                     onClick={handlerClickIncrement}
-                    disabled={isLoading}
+                    disabled={isLoading || isNaN(cant)}
                 >+</button>
             </div>
             <button 
                 onClick={handlerClicAddItem}
                 className={`${size === 'sm' ? 'w-32' : 'w-40 ml-3'} border border-purple-300 text-purple-500 rounded-lg col-span-2 text-sm hover:bg-purple-300 hover:text-white ${isLoading ? 'bg-purple-300': ''}`}
-                disabled={isLoading}
+                disabled={isLoading || isNaN(cant)}
                 >
                 {!isLoading ? 
                     <span>Añadir al carrito</span> 
